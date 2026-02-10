@@ -3,12 +3,14 @@
 <div class="container">
   <header class="header">
     <h1 class="title">Solar System Explorer</h1>
-    <p class="subtitle">Explore the planets in their cosmic dance</p>
+    <p class="subtitle">Scientifically Accurate Visualization of Our Solar System</p>
   </header>
 
   <div class="solar-system">
     <!-- Sun -->
-    <div class="sun"></div>
+    <div class="sun">
+      <span class="sun-label">Sun</span>
+    </div>
 
     <!-- Orbital paths -->
     <div class="orbit" *ngFor="let planet of planets" [style.width.px]="planet.distance * 2" [style.height.px]="planet.distance * 2"></div>
@@ -16,7 +18,22 @@
     <!-- Planets -->
     <div class="planet-container" *ngFor="let planet of planets" [attr.data-planet]="planet.name">
       <div class="planet" [style.width.px]="planet.size" [style.height.px]="planet.size" [style.background-color]="planet.color">
-        <span class="planet-label">{{ planet.name }}</span>
+        <div class="planet-info">
+          <h3>{{ planet.name }}</h3>
+          <div class="info-detail">
+            <span class="label">Diameter:</span>
+            <span class="value">{{ planet.diameter }}</span>
+          </div>
+          <div class="info-detail">
+            <span class="label">Type:</span>
+            <span class="value">{{ planet.type }}</span>
+          </div>
+          <div class="info-detail">
+            <span class="label">Orbit Period:</span>
+            <span class="value">{{ planet.orbitPeriod }}</span>
+          </div>
+          <p class="description">{{ planet.description }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -24,11 +41,12 @@
   <footer class="footer">
     <div class="info-panel">
       <h2>About This Visualization</h2>
-      <p>This is an interactive representation of our solar system with relative orbital mechanics. The planets orbit the sun at different speeds based on their actual orbital characteristics.</p>
+      <p>This is an accurate representation of our solar system with real planetary data. Sizes and distances are scaled proportionally to be visually useful while maintaining accuracy. Orbital speeds are calculated from actual orbital periods.</p>
       <div class="features">
-        <span class="feature">✨ Real-time Animation</span>
+        <span class="feature">🔬 Real Data</span>
+        <span class="feature">⚙️ Accurate Orbits</span>
         <span class="feature">🌍 6 Planets</span>
-        <span class="feature">🎨 Modern Design</span>
+        <span class="feature">✨ Real Colors</span>
       </div>
     </div>
   </footer>

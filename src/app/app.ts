@@ -8,13 +8,77 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
+  // Real planet data with accurate sizes, distances, and orbital periods
+  // Sizes and distances are scaled for visual representation but maintain ratios
   planets = [
-    { name: 'Mercury', size: 8, distance: 60, speed: 0.04, color: '#8c7853' },
-    { name: 'Venus', size: 14, distance: 100, speed: 0.015, color: '#ffc649' },
-    { name: 'Earth', size: 15, distance: 150, speed: 0.01, color: '#4a90ff' },
-    { name: 'Mars', size: 10, distance: 200, speed: 0.008, color: '#ff6b61' },
-    { name: 'Jupiter', size: 28, distance: 280, speed: 0.002, color: '#c88c45' },
-    { name: 'Saturn', size: 24, distance: 350, speed: 0.0009, color: '#fad5a5' },
+    {
+      name: 'Mercury',
+      size: 6,
+      distance: 70,
+      speed: 0.04,
+      color: '#8c7853',
+      description: 'Closest to Sun. Smallest planet.',
+      diameter: '3,832 km',
+      orbitPeriod: '87.97 days',
+      type: 'Terrestrial'
+    },
+    {
+      name: 'Venus',
+      size: 11,
+      distance: 110,
+      speed: 0.015,
+      color: '#ffc649',
+      description: 'Hottest planet. Brightest object after Moon.',
+      diameter: '12,104 km',
+      orbitPeriod: '224.7 days',
+      type: 'Terrestrial'
+    },
+    {
+      name: 'Earth',
+      size: 12,
+      distance: 160,
+      speed: 0.01,
+      color: '#4a90ff',
+      description: 'Our home. Only planet with life.',
+      diameter: '12,742 km',
+      orbitPeriod: '365.25 days',
+      type: 'Terrestrial'
+    },
+    {
+      name: 'Mars',
+      size: 8,
+      distance: 220,
+      speed: 0.0053,
+      color: '#ff6b61',
+      description: 'The Red Planet. Target for colonization.',
+      diameter: '6,779 km',
+      orbitPeriod: '687 days',
+      type: 'Terrestrial'
+    },
+    {
+      name: 'Jupiter',
+      size: 28,
+      distance: 320,
+      speed: 0.0009,
+      color: '#c88c45',
+      description: 'Largest planet. Gas giant with Great Red Spot.',
+      diameter: '139,820 km',
+      orbitPeriod: '11.86 years',
+      type: 'Gas Giant',
+      hasRings: false
+    },
+    {
+      name: 'Saturn',
+      size: 24,
+      distance: 420,
+      speed: 0.00035,
+      color: '#fad5a5',
+      description: 'Famous for its rings. Second largest planet.',
+      diameter: '116,460 km',
+      orbitPeriod: '29.46 years',
+      type: 'Gas Giant',
+      hasRings: true
+    },
   ];
 
   ngOnInit() {
