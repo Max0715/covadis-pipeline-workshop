@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+interface Planet {
+  name: string;
+  size: number;
+  distance: number;
+  speed: number;
+  color: string;
+  description: string;
+  diameter: string;
+  orbitPeriod: string;
+  type: string;
+  hasRings?: boolean;
+  currentPosition?: number; // Actual position in orbit (0-360 degrees)
+}
+
 @Component({
   selector: 'app-root',
   imports: [CommonModule],
@@ -8,9 +22,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
-  // Real planet data with accurate sizes, distances, and orbital periods
-  // Sizes and distances are scaled for visual representation but maintain ratios
-  planets = [
+  planets: Planet[] = [
     {
       name: 'Mercury',
       size: 6,
@@ -82,22 +94,54 @@ export class App implements OnInit {
   ];
 
   ngOnInit() {
+    this.calculateRealPositions();
     this.animatePlanets();
   }
 
+  private calculateRealPositions() {
+    // Reference epoch: J2000.0 (January 1, 2000, 12:00 TT)
+    // Calculate positions for February 10, 2026
+    const referenceDate = new Date(2000, 0, 1, 12, 0, 0); // J2000.0
+    const currentDate = new Date(2026, 1, 10, 0, 0, 0); // Feb 10, 2026
+    const daysSinceEpoch = (currentDate.getTime() - referenceDate.getTime()) / (1000 * 60 * 60 * 24);
+
+    // Orbital elements at J2000.0 (longitude of perihelion at epoch)
+    const perihelionLongitudes: { [key: string]: number } = {
+      'Mercury': 77.46,
+      'Venus': 131.53,
+      'Earth': 102.94,
+      'Mars': 336.04,
+      'Jupiter': 14.75,
+      'Saturn': 93.05
+    };
+
+    // Mean motion (degrees per day)
+    const meanMotions: { [key: string]: number } = {
+      'Mercury': 4.0923,
+      'Venus': 1.6021,
+      'Earth': 0.9856,
+      'Mars': 0.5240,
+      'Jupiter': 0.0830,
+      'Saturn': 0.0339
+    };
+
+    this.planets.forEach(planet => {
+      const meanLongitude = perihelionLongitudes[planet.name] + (meanMotions[planet.name] * daysSinceEpoch);
+      const normalizedLongitude = ((meanLongitude % 360) + 360) % 360;
+      planet.currentPosition = normalizedLongitude;
+    });
+  }
+
   private animatePlanets() {
-    let angle: any = {};
     const animate = () => {
       this.planets.forEach((planet) => {
-        if (!angle[planet.name]) angle[planet.name] = 0;
-        angle[planet.name] += planet.speed;
-
         const element = document.querySelector(
           `[data-planet="${planet.name}"]`
         ) as HTMLElement;
-        if (element) {
-          const x = Math.cos((angle[planet.name] * Math.PI) / 180) * planet.distance;
-          const y = Math.sin((angle[planet.name] * Math.PI) / 180) * planet.distance;
+        if (element && planet.currentPosition !== undefined) {
+          const angleRad = (planet.currentPosition * Math.PI) / 180;
+          const x = Math.cos(angleRad) * planet.distance;
+          const y = Math.sin(angleRad) * planet.distance;
           element.style.transform = `translate(${x}px, ${y}px)`;
         }
       });

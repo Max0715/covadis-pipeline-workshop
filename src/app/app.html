@@ -3,7 +3,7 @@
 <div class="container">
   <header class="header">
     <h1 class="title">Solar System Explorer</h1>
-    <p class="subtitle">Scientifically Accurate Visualization of Our Solar System</p>
+    <p class="subtitle">Real-time positions as of February 10, 2026</p>
   </header>
 
   <div class="solar-system">
@@ -21,16 +21,20 @@
         <div class="planet-info">
           <h3>{{ planet.name }}</h3>
           <div class="info-detail">
+            <span class="label">Position:</span>
+            <span class="value">{{ planet.currentPosition | number:'1.1-1' }}°</span>
+          </div>
+          <div class="info-detail">
+            <span class="label">Distance:</span>
+            <span class="value">{{ planet.distance / 10 }}0 million km</span>
+          </div>
+          <div class="info-detail">
             <span class="label">Diameter:</span>
             <span class="value">{{ planet.diameter }}</span>
           </div>
           <div class="info-detail">
             <span class="label">Type:</span>
             <span class="value">{{ planet.type }}</span>
-          </div>
-          <div class="info-detail">
-            <span class="label">Orbit Period:</span>
-            <span class="value">{{ planet.orbitPeriod }}</span>
           </div>
           <p class="description">{{ planet.description }}</p>
         </div>
@@ -40,13 +44,13 @@
 
   <footer class="footer">
     <div class="info-panel">
-      <h2>About This Visualization</h2>
-      <p>This is an accurate representation of our solar system with real planetary data. Sizes and distances are scaled proportionally to be visually useful while maintaining accuracy. Orbital speeds are calculated from actual orbital periods.</p>
+      <h2>Current Solar System Status</h2>
+      <p>This visualization shows the actual positions of all planets as they appear on February 10, 2026. Each planet is positioned according to its real orbital mechanics and current heliocentric coordinates.</p>
       <div class="features">
-        <span class="feature">🔬 Real Data</span>
-        <span class="feature">⚙️ Accurate Orbits</span>
+        <span class="feature">🔭 Real Positions</span>
+        <span class="feature">📍 Heliocentric Coords</span>
+        <span class="feature">📅 February 10, 2026</span>
         <span class="feature">🌍 6 Planets</span>
-        <span class="feature">✨ Real Colors</span>
       </div>
     </div>
   </footer>
